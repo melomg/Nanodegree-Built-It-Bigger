@@ -1,3 +1,7 @@
+.DS_Store
+
+# reference from https://github.com/github/gitignore/blob/master/Android.gitignore
+
 # Built application files
 *.apk
 *.ap_
@@ -32,19 +36,14 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# IntelliJ
-*.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
 
 # Keystore files
-# Uncomment the following line if you do not want to check your keystore files in.
-#*.jks
+*.jks
+keystore.properties
+
+# Android Studio #
+.idea
+*.iml
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -63,3 +62,18 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+#Gradle
+#gradle/
+
+#Libs
+lib/build/
+
+gradlew
+/app/src/main/res/values/fabric.xml
+/app/src/main/res/values/keys.xml
+
+*.jar
+/gradle.properties
+*.sketch
+*.json
