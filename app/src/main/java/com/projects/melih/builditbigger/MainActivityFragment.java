@@ -5,14 +5,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.projects.melih.jokeprovider.jokes.Joker;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements View.OnClickListener {
 
     public MainActivityFragment() {
     }
@@ -30,6 +33,15 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        root.findViewById(R.id.tellJoke).setOnClickListener(this);
+
         return root;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Joker myJoker = new Joker();
+        Toast.makeText(getContext(), myJoker.getJoke(), Toast.LENGTH_SHORT).show();
     }
 }
