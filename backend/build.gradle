@@ -23,7 +23,13 @@ apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
+appengine {  // App Engine tasks configuration
+    tools.cloudSdkHome="/Users/melih/Desktop/udacity/google-cloud-sdk"
+}
+
 dependencies {
+    implementation project(':jokeProvider')
+
     implementation 'com.google.endpoints:endpoints-framework:2.0.9'
     implementation 'javax.inject:javax.inject:1'
 
