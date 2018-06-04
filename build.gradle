@@ -25,3 +25,19 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task runGCETest (dependsOn: [":backend:appengineStart", ":app:connectedCheck"]) {
+    //evaluationDependsOn ":backend"
+
+    // get tasks
+    def connectedTask = tasks.getByPath(":app:connectedCheck")
+    def gceStart = tasks.getByPath(":backend:appengineStart")
+    def gceStop = tasks.getByPath(":backend:appengineStop")
+
+    // execution order
+    gceStart.mustRunAfter connectedTask
+    finalizedBy gceStop
+    doLast {
+        println 'runGCETest completed'
+    }
+}

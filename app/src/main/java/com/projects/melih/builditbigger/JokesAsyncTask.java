@@ -12,16 +12,16 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 
 public class JokesAsyncTask extends AsyncTask<Void, Void, Result> {
-    private static MyApi myApiService = null;
-    private Callback callback;
+    private static MyApi apiService = null;
+    private final Callback callback;
 
-    JokesAsyncTask(Callback callback) {
+    public JokesAsyncTask(Callback callback) {
         this.callback = callback;
     }
 
     @Override
     protected Result doInBackground(Void... voids) {
-        if (myApiService == null) {  // Only do this once
+        if (apiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -35,11 +35,11 @@ public class JokesAsyncTask extends AsyncTask<Void, Void, Result> {
                         }
                     });
             // end options for devappserver
-            myApiService = builder.build();
+            apiService = builder.build();
         }
 
         try {
-            return new Result(myApiService.jokes().execute().getData(), null);
+            return new Result(apiService.jokes().execute().getData(), null);
         } catch (IOException e) {
             return new Result(null, e.getMessage());
         }
