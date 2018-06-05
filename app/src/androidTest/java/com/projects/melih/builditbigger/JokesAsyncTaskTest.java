@@ -6,8 +6,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.concurrent.CountDownLatch;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
 
 public class JokesAsyncTaskTest {
     private JokesAsyncTask jokesAsyncTask;
@@ -43,6 +45,6 @@ public class JokesAsyncTaskTest {
         jokesAsyncTask.execute();
         latch.await();
 
-        verify(newJoke).contains(anyString());
+        assertThat(newJoke, not(isEmptyOrNullString()));
     }
 }

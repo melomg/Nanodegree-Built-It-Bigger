@@ -27,8 +27,6 @@ task clean(type: Delete) {
 }
 
 task runGCETest (dependsOn: [":backend:appengineStart", ":app:connectedCheck"]) {
-    //evaluationDependsOn ":backend"
-
     // get tasks
     def connectedTask = tasks.getByPath(":app:connectedCheck")
     def gceStart = tasks.getByPath(":backend:appengineStart")
