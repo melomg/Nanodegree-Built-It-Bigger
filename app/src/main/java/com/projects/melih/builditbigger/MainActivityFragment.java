@@ -1,5 +1,6 @@
 package com.projects.melih.builditbigger;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -18,6 +19,7 @@ import com.projects.melih.jokedisplayer.JokeActivity;
 public class MainActivityFragment extends BaseFragment implements View.OnClickListener {
 
     private ContentLoadingProgressBar progressBar;
+    private AsyncTask<Void, Void, Result> jokesAsyncTask;
 
     public MainActivityFragment() {
     }
@@ -42,11 +44,17 @@ public class MainActivityFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cancelJokesTask();
+    }
+
+    @Override
     public void onClick(View v) {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.show();
-        new JokesAsyncTask(new JokesAsyncTask.Callback() {
-
+        cancelJokesTask();
+        jokesAsyncTask = new JokesAsyncTask(new JokesAsyncTask.Callback() {
             @Override
             public void onSuccess(String joke) {
                 progressBar.hide();
@@ -65,5 +73,11 @@ public class MainActivityFragment extends BaseFragment implements View.OnClickLi
                 showToast(context.getString(R.string.jokes_cancelled));
             }
         }).execute();
+    }
+
+    private void cancelJokesTask() {
+        if (jokesAsyncTask != null) {
+            jokesAsyncTask.cancel(true);
+        }
     }
 }
