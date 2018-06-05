@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
-
 public class JokesAsyncTaskTest {
     private JokesAsyncTask jokesAsyncTask;
     private String newJoke;
