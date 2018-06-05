@@ -1,27 +1,27 @@
 package com.projects.melih.builditbigger;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.projects.melih.builditbigger.base.BaseFragment;
 import com.projects.melih.jokedisplayer.JokeActivity;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends BaseFragment implements View.OnClickListener {
-
+public class BaseMainActivityFragment extends Fragment implements View.OnClickListener {
+    protected Context context;
     private ContentLoadingProgressBar progressBar;
     private AsyncTask<Void, Void, Result> jokesAsyncTask;
 
-    public MainActivityFragment() {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -29,15 +29,6 @@ public class MainActivityFragment extends BaseFragment implements View.OnClickLi
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
         progressBar = root.findViewById(R.id.progressBar);
-
-        AdView mAdView = root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
 
         root.findViewById(R.id.tellJoke).setOnClickListener(this);
         return root;
@@ -79,5 +70,9 @@ public class MainActivityFragment extends BaseFragment implements View.OnClickLi
         if (jokesAsyncTask != null) {
             jokesAsyncTask.cancel(true);
         }
+    }
+
+    protected void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }
